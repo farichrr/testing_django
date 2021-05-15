@@ -1,5 +1,5 @@
 from faker import Faker
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import Publisher
 
 
@@ -17,3 +17,11 @@ class TestMyModule(TestCase):
 
     def test_str_representation(self):
         self.assertEquals(str(self.p), "silent")
+
+class TestGreetingView(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_greeting_view(self):
+        response = self.client.get('/testing/test/')
+        self.assertEquals(response.status_code, 200)
